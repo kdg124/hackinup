@@ -66,7 +66,7 @@
             <h2>시도해볼 XSS 코드</h2>
             <p>취약한 댓글 시스템에서 다음과 같은 입력을 시도해보세요:</p>
             <pre>&lt;script&gt;alert('XSS 공격 성공!');&lt;/script&gt;</pre>
-            <img src="x" onerror="
+            <pre>&lt;img src="x" onerror="
   var popup = document.createElement('div');
   popup.style.position = 'fixed';
   popup.style.top = '50%';
@@ -78,7 +78,7 @@
   popup.style.zIndex = '9999';
   popup.innerHTML = '<h2>진짜 팝업!</h2><p>이건 XSS로 띄운 창입니다.</p><button onclick=&quot;this.parentElement.remove()&quot;>닫기</button>';
   document.body.appendChild(popup);
-">
+"&gt;</pre>
             <pre>&lt;div onmouseover="alert('마우스오버 XSS 공격 성공!');"&gt;여기에 마우스를 올려보세요&lt;/div&gt;</pre>
         </div>
     </div>
@@ -148,3 +148,4 @@
 </body>
 
 </html>
+
