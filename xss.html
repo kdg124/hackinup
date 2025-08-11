@@ -16,15 +16,15 @@
 <body>
     <div class="container">
         <h1>XSS(크로스 사이트 스크립팅) 데모</h1>
-        <p>이 페이지는 XSS 취약점을 시연하기 위한 데모입니다.</p>
+        <p>(XSS 공격 가능)</p>
         
-        <h2>취약한 댓글 시스템</h2>
+        <h2>취약한 댓글</h2>
         <div>
             <h3>새 댓글 작성</h3>
             <form id="vulnerableCommentForm">
                 <div>
-                    <label>이름:</label>
-                    <input type="text" id="vulnName" placeholder="이름 입력">
+                    <label>닉네임:</label>
+                    <input type="text" id="vulnName" placeholder="닉네임 입력">
                 </div>
                 <div>
                     <label>댓글:</label>
@@ -34,13 +34,13 @@
             </form>
         </div>
         
-        <h2>안전한 댓글 시스템</h2>
+        <h2>안전한 댓글</h2>
         <div>
             <h3>새 댓글 작성</h3>
             <form id="safeCommentForm">
                 <div>
-                    <label>이름:</label>
-                    <input type="text" id="safeName" placeholder="이름 입력">
+                    <label>닉네임:</label>
+                    <input type="text" id="safeName" placeholder="닉네임 입력">
                 </div>
                 <div>
                     <label>댓글:</label>
@@ -66,7 +66,19 @@
             <h2>시도해볼 XSS 코드</h2>
             <p>취약한 댓글 시스템에서 다음과 같은 입력을 시도해보세요:</p>
             <pre>&lt;script&gt;alert('XSS 공격 성공!');&lt;/script&gt;</pre>
-            <pre>&lt;img src="x" onerror="alert('이미지 XSS 공격 성공!');"&gt;</pre>
+            <img src="x" onerror="
+  var popup = document.createElement('div');
+  popup.style.position = 'fixed';
+  popup.style.top = '50%';
+  popup.style.left = '50%';
+  popup.style.transform = 'translate(-50%, -50%)';
+  popup.style.background = 'white';
+  popup.style.border = '2px solid black';
+  popup.style.padding = '20px';
+  popup.style.zIndex = '9999';
+  popup.innerHTML = '<h2>진짜 팝업!</h2><p>이건 XSS로 띄운 창입니다.</p><button onclick=&quot;this.parentElement.remove()&quot;>닫기</button>';
+  document.body.appendChild(popup);
+">
             <pre>&lt;div onmouseover="alert('마우스오버 XSS 공격 성공!');"&gt;여기에 마우스를 올려보세요&lt;/div&gt;</pre>
         </div>
     </div>
@@ -134,4 +146,5 @@
         }
     </script>
 </body>
+
 </html>
