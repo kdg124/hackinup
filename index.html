@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Index - 페이지 이동 예제</title>
+  <title>별 의미 없는 페이지</title>
   <style>
     :root{font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans KR',"Helvetica Neue",Arial}
     body{display:flex;align-items:center;justify-content:center;height:100vh;margin:0;background:#f7fafc}
@@ -18,37 +18,22 @@
 </head>
 <body>
   <main class="panel" role="main">
-    <h1>페이지 선택</h1>
-    <p>버튼을 누르면 각각 <code>1.html</code> ~ <code>4.html</code> 로 이동합니다.</p>
+    <h1>선택</h1>
+    <p><code>sql, xss, csrf vic/atk</code></p>
 
     <div class="btn-row" role="navigation" aria-label="페이지 링크">
-      <button type="button" onclick="goTo('sql.html')">1.html</button>
-      <button type="button" onclick="goTo('xss.html')">2.html</button>
-      <button type="button" onclick="goTo('vic_csrf.html')">3.html</button>
-      <button type="button" onclick="goTo('atk_csrf.html')">4.html</button>
+      <button type="button" onclick="goTo('sql.html')">sql.html</button>
+      <button type="button" onclick="goTo('xss.html')">xss.html</button>
+      <button type="button" onclick="goTo('vic_csrf.html')">csrf vic.html</button>
+      <button type="button" onclick="goTo('atk_csrf.html')">csrf atk.html</button>
     </div>
-
-    <p style="margin-top:14px;font-size:13px;color:#555">또는 아래 링크를 길게 누르거나 새 탭에서 열어보세요.</p>
-    <p>
-      <a href="1.html">1.html</a> ·
-      <a href="2.html">2.html</a> ·
-      <a href="3.html">3.html</a> ·
-      <a href="4.html">4.html</a>
-    </p>
   </main>
 
   <script>
     function goTo(page) {
-      // 같은 탭에서 이동
       window.location.href = page;
     }
-
-    // 키보드 접근성: 1~4 키로 바로 이동
-    document.addEventListener('keydown', function(e){
-      if (e.key >= '1' && e.key <= '4' && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        goTo(e.key + '.html');
-      }
-    });
   </script>
 </body>
 </html>
+
