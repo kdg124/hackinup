@@ -15,13 +15,13 @@
 <body>
     <div class="container">
         <h1>SQL 인젝션 데모</h1>
-        <p>이 페이지는 SQL 인젝션 취약점을 시연하기 위한 데모입니다.</p>
+        <p>(극단적 예시)</p>
         
-        <h2>취약한 로그인 폼</h2>
+        <h2>취약한 로그인</h2>
         <form id="vulnerableForm">
             <div>
-                <label>사용자명:</label>
-                <input type="text" id="vulnUsername" placeholder="사용자명 입력">
+                <label>아이디:</label>
+                <input type="text" id="vulnUsername" placeholder="아이디 입력">
             </div>
             <div>
                 <label>비밀번호:</label>
@@ -30,11 +30,11 @@
             <button type="button" onclick="vulnerableLogin()">로그인</button>
         </form>
         
-        <h2>안전한 로그인 폼</h2>
+        <h2>안전한 로그인</h2>
         <form id="safeForm">
             <div>
-                <label>사용자명:</label>
-                <input type="text" id="safeUsername" placeholder="사용자명 입력">
+                <label>아이디:</label>
+                <input type="text" id="safeUsername" placeholder="아이디 입력">
             </div>
             <div>
                 <label>비밀번호:</label>
@@ -50,47 +50,38 @@
         
         <div>
             <h2>시도해볼 SQL 인젝션</h2>
-            <p>취약한 폼에서 다음과 같은 입력을 시도해보세요:</p>
             <pre>' OR '1'='1</pre>
-            <p>사용자명에 위 코드를 입력하고 비밀번호는 아무거나 입력하세요.</p>
         </div>
     </div>
 
     <script>
-        // 가상의 데이터베이스 테이블
         const users = [
-            { id: 1, username: 'admin', password: 'secretpass123' },
-            { id: 2, username: 'user1', password: 'userpass456' }
+            { id: 1, username: 'admin', password: 'admin123' },
+            { id: 2, username: 'dwasd', password: 'dwasdwasd' }
         ];
         
-        // 취약한 로그인 함수
         function vulnerableLogin() {
             const username = document.getElementById('vulnUsername').value;
             const password = document.getElementById('vulnPassword').value;
             
-            // SQL 인젝션에 취약한 쿼리 (시뮬레이션)
             const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
             
-            // 쿼리 실행 시뮬레이션
             let result = "";
             try {
-                // 인젝션 시뮬레이션: ' OR '1'='1 같은 입력이 들어오면 모든 사용자 반환
                 if (query.includes("' OR '1'='1")) {
-                    result = `<div class="vulnerable">SQL 인젝션 성공!</div>
+                    result = `<div class="vulnerable">공격 성공</div>
                              <p>실행된 쿼리: ${query}</p>
-                             <p>결과: 모든 사용자 데이터가 노출됨</p>
+                             <p>모든 사용자 데이터 노출(연출)</p>
                              <pre>${JSON.stringify(users, null, 2)}</pre>`;
                 } else {
-                    // 일반 로그인 시도 시뮬레이션
                     const user = users.find(u => u.username === username && u.password === password);
                     if (user) {
-                        result = `<div>로그인 성공!</div>
-                                 <p>실행된 쿼리: ${query}</p>
-                                 <p>결과: 사용자 찾음</p>`;
+                        result = `<div>로그인 성공</div>
+                                 <p>실행된 쿼리: ${query}</p>`;
                     } else {
                         result = `<div>로그인 실패</div>
                                  <p>실행된 쿼리: ${query}</p>
-                                 <p>결과: 사용자를 찾을 수 없음</p>`;
+                                 <p>사용자를 찾을 수 없음</p>`;
                     }
                 }
             } catch (e) {
@@ -100,26 +91,21 @@
             document.getElementById('queryResult').innerHTML = result;
         }
         
-        // 안전한 로그인 함수
         function safeLogin() {
             const username = document.getElementById('safeUsername').value;
             const password = document.getElementById('safePassword').value;
             
-            // 매개변수화된 쿼리 시뮬레이션
             const query = "SELECT * FROM users WHERE username = ? AND password = ?";
             
-            // 쿼리 실행 시뮬레이션 (매개변수화된 방식)
             let result = "";
             try {
-                // 실제 매개변수화된 쿼리는 SQL 인젝션을 방지함
                 const user = users.find(u => u.username === username && u.password === password);
                 if (user) {
-                    result = `<div class="safe">안전한 로그인 성공!</div>
+                    result = `<div class="safe">안전한 로그인</div>
                              <p>실행된 쿼리: ${query}</p>
-                             <p>바인딩된 매개변수: username="${username}", password="${password}"</p>
-                             <p>결과: 사용자 찾음</p>`;
+                             <p>바인딩된 매개변수: username="${username}", password="${password}"</p>`;
                 } else {
-                    result = `<div class="safe">안전한 로그인 실패</div>
+                    result = `<div class="safe">로그인 실패</div>
                              <p>실행된 쿼리: ${query}</p>
                              <p>바인딩된 매개변수: username="${username}", password="${password}"</p>
                              <p>결과: 사용자를 찾을 수 없음</p>`;
@@ -132,4 +118,5 @@
         }
     </script>
 </body>
+
 </html>
