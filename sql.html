@@ -71,7 +71,7 @@
                 if (query.includes("' OR '1'='1")) {
                     result = `<div class="vulnerable">공격 성공</div>
                              <p>실행된 쿼리: ${query}</p>
-                             <p>모든 사용자 데이터 노출(연출)</p>
+                             <p>사용자 데이터 노출(연출)</p>
                              <pre>${JSON.stringify(users, null, 2)}</pre>`;
                 } else {
                     const user = users.find(u => u.username === username && u.password === password);
@@ -120,3 +120,4 @@
 </body>
 
 </html>
+
